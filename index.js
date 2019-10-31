@@ -30,8 +30,11 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.get("/", (res, err) => {
+    res.send("<h1>Tutor Api</h1>")
+})
+app.use("/api", users);
 
-app.use("/", users);
 
 app.listen(PORT, () => {
     console.log(`Is your server running? yes on ${PORT}`);
