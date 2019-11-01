@@ -46,16 +46,17 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-    const { errors, isValid } = validateLoginInput(req.body);
+    console.log(req.body.auth)
+    const { errors, isValid } = validateLoginInput(req.body.auth);
     if (!isValid) {
-        return res.status(409).json(errors);
+        return res.status(400).json(errors);
     }
-    const email = req.body.email;
-    const password = req.body.password;
+    const email = req.body.auth.email;
+    const password = req.body.auth.password;
 
     User.findOne({ email: email }).then(user => {
         if (!user) {
-            return res.status(404).json({ emailnotfound: "Email not found" })
+            return res.status(404).json({ emailnotfound: "Email not found", user: user })
         }
         bcrypt.compare(password, user.password).then(isMatch => {
             if (isMatch) {
