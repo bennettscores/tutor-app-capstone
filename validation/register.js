@@ -8,6 +8,7 @@ module.exports = function validateRegisterInput(data) {
     data.email = !isEmpty(data.email) ? data.email : "";
     data.password = !isEmpty(data.password) ? data.password : "";
     data.password2 = !isEmpty(data.password2) ? data.password2 : "";
+    data.role = !isEmpty(data.role) ? data.role : "";
 
     if (validator.isEmpty(data.name)) {
         errors.name = "Name is required"
@@ -25,6 +26,10 @@ module.exports = function validateRegisterInput(data) {
 
     if (validator.isEmpty(data.password2)) {
         errors.password2 = "Confirm your password"
+    }
+
+    if (validator.isEmpty(data.role)) {
+        errors.role = "Student or Tutor option required"
     }
 
     if (!validator.equals(data.password, data.password2)) {

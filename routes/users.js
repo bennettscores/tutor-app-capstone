@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken")
 
 const validateRegisterInput = require("../validation/register")
 const validateLoginInput = require("../validation/login")
@@ -11,11 +10,13 @@ const User = require("../models/user");
 
 router.post("/register", (req, res) => {
 
-    const { errors, isValid } = validateRegisterInput(req.body)
 
-    if (!isValid) {
-        return res.status(400).json(errors);
-    }
+    // const { errors, isValid } = validateRegisterInput(req.body)
+
+    // if (!isValid) {
+    //     return res.status(400).json(errors);
+    // }
+
 
     User.findOne({ email: req.body.email }).then(user => {
         if (user) {
@@ -23,10 +24,10 @@ router.post("/register", (req, res) => {
             return res.status(400).json({ email: "Email already exists" });
         } else {
             const newUser = new User({
-                name: req.body.auth.name,
-                email: req.body.auth.email,
-                password: req.body.auth.password,
-                role: req.body.auth.role
+                name: req.body.name,
+                email: req.body.email,
+                password: req.body.password,
+                role: req.body.role
             });
 
             bcrypt.genSalt(10, (err, salt) => {
