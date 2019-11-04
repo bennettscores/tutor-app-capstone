@@ -6,6 +6,7 @@ const UserSchema = new Schema({
     email: { type: String, require: true },
     password: { type: String, require: true },
     role: { type: String, require: true },
+    university: { type: String, require: true },
     date: { type: Date, default: Date.now },
 })
 
