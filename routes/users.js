@@ -75,6 +75,17 @@ router.post("/login", (req, res) => {
 })
 
 
+router.get("/get-tutors", (req, res) => {
+    User.find((err, users) => {
+        if (err) {
+            console.log("Get Tutors Err" + err)
+        } else {
+            res.status(200).json(users)
+        }
+    })
+})
+
+
 
 
 module.exports = router
